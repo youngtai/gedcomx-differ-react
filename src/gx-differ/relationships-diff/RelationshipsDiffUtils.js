@@ -93,8 +93,8 @@ function getRelationshipsIntersection(
 // }
 
 function fullTextName(person) {
-  if (!person?.names) {
-    return "Nameless Person";
+  if (!person.names[0]?.nameForms[0]?.fullText) {
+    return `Nameless Person (${person.id})`;
   }
   return person.names[0]?.nameForms[0]?.fullText;
 }
@@ -220,16 +220,16 @@ function hasMatchingAttribute(
   // Get the matching parent objects (relationships or persons) from the compare side
   const matchingObjects = parentObjectIsARelationship(parentObject)
     ? relationshipsWithSamePersonsAndType(
-        parentObject,
-        comparingToParentObjects,
-        persons,
-        comparingToPersons
-      )
+      parentObject,
+      comparingToParentObjects,
+      persons,
+      comparingToPersons
+    )
     : personsWithMatchingNames(
-        parentObject,
-        comparingToParentObjects,
-        assertions
-      )
+      parentObject,
+      comparingToParentObjects,
+      assertions
+    )
   return matchingAttributeExists(matchingObjects, attributeData, fact)
 }
 

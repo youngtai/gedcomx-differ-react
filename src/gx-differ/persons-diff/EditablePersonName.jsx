@@ -86,7 +86,11 @@ export default function EditablePersonName({
           <Grid>
             <Grid container spacing={1} alignItems="center">
               <Grid>
-                <ColoredNameParts nameParts={nameParts} hasMatch={hasMatch} />
+                <ColoredNameParts
+                  nameParts={nameParts}
+                  hasMatch={hasMatch}
+                  person={person}
+                />
               </Grid>
               <Grid>
                 {name.type && (
