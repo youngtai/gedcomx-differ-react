@@ -1,9 +1,6 @@
 import { Grid, Typography, useTheme } from "@mui/joy";
 import PropTypes from "prop-types";
-
-function makeQuestionableWhitespaceVisible(input) {
-  return input?.replace(/^\s+|\s{2,}|\s+$/g, "_");
-}
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 
 export default function ColoredNameParts({ nameParts, hasMatch, person }) {
   const theme = useTheme();

@@ -5,6 +5,10 @@ import { getPersonsIntersection } from './persons-diff/PersonDiffUtils'
 import { factIsEmpty, getPersonById, getRelationshipsIntersection } from './relationships-diff/RelationshipsDiffUtils'
 import { getRecordDataIntersection } from "./sourceDescriptions-diff/SourceDescriptionsDiffUtils"
 
+export function makeQuestionableWhitespaceVisible(input) {
+  return input?.replace(/^\s+|\s{2,}|\s+$/g, "_");
+}
+
 export const generateLocalId = () => Math.random().toString(36).substring(2, 9)
 
 export const relationshipCompareFunction = (rA, rB, persons) => {

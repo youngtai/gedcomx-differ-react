@@ -20,6 +20,7 @@ import {
   factIsEmpty,
   hasMatchingAttribute,
 } from "../relationships-diff/RelationshipsDiffUtils";
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 
 export default function EditableFactAttribute({
   attributeData,
@@ -175,7 +176,7 @@ export default function EditableFactAttribute({
               variant="body1"
               sx={{ fontWeight: 600, color: textColor }}
             >
-              {editFieldValue}
+              {makeQuestionableWhitespaceVisible(editFieldValue)}
             </Typography>
             <Typography variant="body2" sx={{ color: textColor }}>
               {KEY_TO_LABEL_MAP[attributeData.key]}

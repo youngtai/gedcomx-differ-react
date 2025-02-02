@@ -1,18 +1,21 @@
 import {
   Box,
-  Button,
   Grid,
   IconButton,
   Input,
   Option,
   Select,
+  Sheet,
+  Tooltip,
   Typography,
+  useTheme,
 } from "@mui/joy";
 import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react";
 import { FACT_KEYS, FACT_QUALIFIER } from "../constants";
-import { AddIcon, DeleteIcon } from "../Icons";
+import { AddIcon, CancelIcon, DeleteIcon, EditIcon, SaveIcon } from "../Icons";
 import { RecordsDataContext } from "../RecordsContext";
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 import { hasMatchingQualifier } from "./PersonDiffUtils";
 
 export default function EditableFactQualifier({
@@ -25,6 +28,7 @@ export default function EditableFactQualifier({
   comparingTo,
   updateData,
 }) {
+  const theme = useTheme();
   const recordsData = useContext(RecordsDataContext);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -38,8 +42,8 @@ export default function EditableFactQualifier({
     hasMatchingQualifier(attributeData, parentObject, comparingTo)
   );
 
-  const backgroundColor = hasMatch ? "neutral.softBg" : "warning.softBg";
-  const textColor = hasMatch ? "text.primary" : "warning.plainColor";
+  const backgroundColor = hasMatch ? "" : theme.palette.diff.background;
+  const textColor = hasMatch ? "" : theme.palette.diff.color;
 
   useEffect(() => {
     setHasMatch(hasMatchingQualifier(attributeData, parentObject, comparingTo));
@@ -81,47 +85,52 @@ export default function EditableFactQualifier({
   }
 
   const editableQualifier = (
-    <Grid container spacing={1} sx={{ backgroundColor, p: 1 }}>
-      <Grid xs={12}>
-        <Typography
-          level="body-sm"
-          sx={{ backgroundColor: "neutral.softBg", p: 1 }}
-          hidden={qualifierIndex !== 0}
-        >
-          Qualifiers
-        </Typography>
+    <Sheet
+      variant="soft"
+      color="neutral"
+      sx={{ padding: 1, borderRadius: "sm", background: backgroundColor }}
+    >
+      <Grid container direction="row" spacing={2} alignItems="center">
+        <Grid>
+          <Typography level="body-sm" color={textColor}>
+            {attributeData.qualifier.name}
+          </Typography>
+          <Typography level="body-xs" color={textColor}>
+            Name
+          </Typography>
+        </Grid>
+        <Grid xs>
+          <Input
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            size="sm"
+          />
+        </Grid>
+        <Grid>
+          <Tooltip title="Cancel" arrow>
+            <IconButton onClick={() => setIsEditing(false)}>
+              <CancelIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Save" arrow>
+            <IconButton onClick={handleSave}>
+              <SaveIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
       </Grid>
-      <Grid xs={4}>
-        <Typography level="body-sm" color={textColor}>
-          {attributeData.qualifier.name}
-        </Typography>
-        <Typography level="body-xs" color={textColor}>
-          Name
-        </Typography>
-      </Grid>
-      <Grid xs={6}>
-        <Input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          size="sm"
-        />
-      </Grid>
-      <Grid xs={2}>
-        <Button onClick={handleSave} size="sm">
-          Save
-        </Button>
-      </Grid>
-    </Grid>
+    </Sheet>
   );
 
   const addQualifier = (
     <Box sx={{ p: 1 }} hidden={!isAdding}>
       <Grid container spacing={1}>
-        <Grid xs={3}>
+        <Grid>
           <Select
             value={newName}
-            onChange={(e, newValue) => setNewName(newValue)}
+            onChange={(_, newValue) => setNewName(newValue)}
             size="sm"
+            placeholder="Select a qualifier"
           >
             {Object.keys(FACT_QUALIFIER).map((key) => (
               <Option
@@ -133,60 +142,77 @@ export default function EditableFactQualifier({
             ))}
           </Select>
         </Grid>
-        <Grid xs={7}>
+        <Grid xs>
           <Input
             value={newValue}
             onChange={(e) => setNewValue(e.target.value)}
             size="sm"
           />
         </Grid>
-        <Grid xs={2}>
-          <Button onClick={handleSaveAdd} size="sm">
-            Save
-          </Button>
+        <Grid>
+          <Tooltip title="Cancel" arrow>
+            <IconButton onClick={() => setIsAdding(false)}>
+              <CancelIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Save" arrow>
+            <IconButton onClick={handleSaveAdd}>
+              <SaveIcon />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
     </Box>
   );
 
   const qualifierItem = (
-    <Grid container spacing={1} sx={{ backgroundColor, p: 1 }}>
-      <Grid xs={4}>
-        <Typography level="body-sm" color={textColor}>
-          {attributeData.qualifier.name}
-        </Typography>
-        <Typography level="body-xs" color={textColor}>
-          Name
-        </Typography>
+    <Sheet
+      variant="soft"
+      color="neutral"
+      sx={{ padding: 1, borderRadius: "sm", background: backgroundColor }}
+    >
+      <Grid container alignItems="center" justifyContent="space-between">
+        <Grid>
+          <Typography level="body-sm" sx={{ color: textColor }}>
+            {attributeData.qualifier.name}
+          </Typography>
+          <Typography level="body-xs" sx={{ color: textColor }}>
+            Name
+          </Typography>
+        </Grid>
+        <Grid>
+          <Typography level="body-sm" sx={{ color: textColor }}>
+            {makeQuestionableWhitespaceVisible(value)}
+          </Typography>
+          <Typography level="body-xs" sx={{ color: textColor }}>
+            Value
+          </Typography>
+        </Grid>
+        <Grid alignItems="center" justifyContent="center">
+          <Tooltip title="Edit" arrow>
+            <IconButton onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete" arrow>
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
       </Grid>
-      <Grid xs={6}>
-        <Typography level="body-sm" color={textColor}>
-          {value}
-        </Typography>
-        <Typography level="body-xs" color={textColor}>
-          Value
-        </Typography>
-      </Grid>
-      <Grid xs={2}>
-        <Button onClick={handleEdit} size="sm">
-          Edit
-        </Button>
-        <IconButton onClick={handleDelete} size="sm">
-          <DeleteIcon />
-        </IconButton>
-      </Grid>
-    </Grid>
+    </Sheet>
   );
 
   return (
     <Box>
       <Box
-        sx={{ backgroundColor: "neutral.softBg", p: 1 }}
+        // sx={{ backgroundColor: "neutral.softBg", p: 1 }}
         hidden={qualifierIndex !== 0}
       >
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid>
-            <Typography level="title-sm">Qualifiers</Typography>
+            <Typography level="title-md">Qualifiers</Typography>
           </Grid>
           <Grid>
             <IconButton onClick={handleAdd} size="sm">
@@ -208,6 +234,6 @@ EditableFactQualifier.propTypes = {
   factIndex: PropTypes.number,
   parentObject: PropTypes.object,
   parentObjectIndex: PropTypes.number,
-  comparingTo: PropTypes.object,
+  comparingTo: PropTypes.array,
   updateData: PropTypes.func,
 };
