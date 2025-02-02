@@ -12,14 +12,24 @@ import { useEffect, useState } from "react";
 import VisualGedcomxDiffer from "./gx-differ/VisualGedcomxDiffer";
 import { colorBlind, standard } from "./Theme";
 
+const DIFF_THEME = "diffTheme";
+const DIFF_THEMES = {
+  standard,
+  colorBlind,
+};
+
 export default function DifferApp() {
-  const [theme, setTheme] = useState(standard);
+  const [theme, setTheme] = useState(
+    () => DIFF_THEMES[localStorage.getItem(DIFF_THEME) || "standard"]
+  );
 
   const handleThemeChange = () => {
     if (theme === standard) {
       setTheme(colorBlind);
+      localStorage.setItem(DIFF_THEME, "colorBlind");
     } else {
       setTheme(standard);
+      localStorage.setItem(DIFF_THEME, "standard");
     }
   };
 
@@ -53,7 +63,7 @@ export default function DifferApp() {
 }
 
 function ModeSwitcher() {
-  const { mode, setMode } = useColorScheme();
+  const { mode, setMode } = useColorScheme("system");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
