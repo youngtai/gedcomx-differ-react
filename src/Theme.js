@@ -41,11 +41,11 @@ const commonDarkPalette = {
   },
   personNodeFemale: {
     background: colors.red[800],
-    border: `1px solid ${colors.red[300]}`,
+    border: `1px solid ${colors.red[600]}`,
   },
   personNodeMale: {
     background: colors.blue[800],
-    border: `1px solid ${colors.blue[300]}`,
+    border: `1px solid ${colors.blue[600]}`,
   },
   name: {
     altName: '#a9a9a9',
