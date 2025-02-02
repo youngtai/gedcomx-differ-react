@@ -68,8 +68,8 @@ const themes = {
         palette: {
           ...commonLightPalette,
           diff: {
-            background: "#fff6f6",
-            color: "#760000",
+            background: colors.red[50],
+            color: colors.red[700],
           },
         },
       },
@@ -77,8 +77,8 @@ const themes = {
         palette: {
           ...commonDarkPalette,
           diff: {
-            background: "#230000",
-            color: "#ffbebe",
+            background: colors.red[800],
+            color: colors.red[50],
           },
         },
       },
@@ -94,8 +94,8 @@ const themes = {
         palette: {
           ...commonLightPalette,
           diff: {
-            background: "#fff1c8",
-            color: "#0461b3",
+            background: colors.yellow[200],
+            color: colors.blue[700],
           },
         },
       },
@@ -103,8 +103,8 @@ const themes = {
         palette: {
           ...commonDarkPalette,
           diff: {
-            background: "#4d3600",
-            color: "#9bd2ff",
+            background: colors.yellow[700],
+            color: colors.blue[200],
           },
         },
       },
