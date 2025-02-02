@@ -50,7 +50,7 @@ const commonDarkPalette = {
   name: {
     altName: '#a9a9a9',
     prefix: '#ffa500',
-    given: '#ffffff',
+    given: '#fbfcfe',
     surname: '#bf80ff',
     suffix: '#d3d3d3'
   },
