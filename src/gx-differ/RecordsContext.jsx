@@ -1,6 +1,5 @@
 import { createContext } from "react";
 
-
 function setter() {
   console.error("A setter should have been set");
 }
@@ -12,4 +11,5 @@ export const RecordsDataContext = createContext({
   setComparingToGx: setter,
   finalGx: {},
   setFinalGx: setter,
+  side: "",
 });

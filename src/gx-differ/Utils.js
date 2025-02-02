@@ -148,6 +148,12 @@ export function gxIsEmpty(gx) {
       (key) => JSON.stringify(gx[key]) === JSON.stringify(EMPTY_GEDCOMX[key])
     )
 }
+
+const SIDES = {
+  left: 'left',
+  right: 'right',
+}
+
 export const leftRecordsData = (
   leftGx,
   setLeftGx,
@@ -163,8 +169,10 @@ export const leftRecordsData = (
     setComparingToGx: setRightGx,
     finalGx: finalGx,
     setFinalGx: setFinalGx,
+    side: SIDES.left,
   }
 }
+
 export const rightRecordsData = (
   leftGx,
   setLeftGx,
@@ -180,5 +188,6 @@ export const rightRecordsData = (
     setComparingToGx: setLeftGx,
     finalGx: finalGx,
     setFinalGx: setFinalGx,
+    side: SIDES.right,
   }
 }
