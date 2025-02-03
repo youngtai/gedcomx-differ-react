@@ -47,7 +47,7 @@ export default function EditableDocument({ document, documentIndex }) {
   }
 
   return isEditing ? (
-    <Sheet sx={{ margin: 2, padding: 1 }} variant="outlined">
+    <Sheet sx={{ padding: 2, borderRadius: "sm" }} variant="outlined">
       <Grid
         container
         spacing={1}
