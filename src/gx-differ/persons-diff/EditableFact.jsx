@@ -269,7 +269,7 @@ export default function EditableFact({
               >
                 {getMissingAttributes(presentAttributes).map((a, idx) => (
                   <Option key={`attribute-option-${idx}`} value={a}>
-                    {a.replace(/\b\w/g, char => char.toUpperCase())}
+                    {a.replace(/\b\w/g, (char) => char.toUpperCase())}
                   </Option>
                 ))}
               </Select>
