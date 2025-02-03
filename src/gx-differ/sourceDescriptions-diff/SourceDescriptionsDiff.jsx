@@ -7,7 +7,7 @@ import { leftRecordsData, rightRecordsData } from "../Utils";
 import EditableRecordSourceDescription from "./EditableRecordSourceDescription";
 
 function SourceDescriptionItem({ sourceDescription, idx }) {
-  const { systemMode } = useColorScheme();
+  const { mode, systemMode } = useColorScheme();
 
   if (sourceDescription.resourceType === "http://gedcomx.org/DigitalArtifact") {
     return (
@@ -32,7 +32,11 @@ function SourceDescriptionItem({ sourceDescription, idx }) {
           data={sourceDescription}
           rootName="sourceDescription"
           collapse={true}
-          theme={systemMode === "dark" ? githubDarkTheme : githubLightTheme}
+          theme={
+            systemMode === "dark" || mode === "dark"
+              ? githubDarkTheme
+              : githubLightTheme
+          }
           restrictEdit={true}
           restrictAdd={true}
           restrictDelete={true}
