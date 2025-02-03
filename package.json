@@ -15,6 +15,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/joy": "^5.0.0-beta.48",
+    "json-edit-react": "^1.22.0",
     "react": "^18.3.1",
     "react-clipboard.js": "^2.0.16",
     "react-dom": "^18.3.1",

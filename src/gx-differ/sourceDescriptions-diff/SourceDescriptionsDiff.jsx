@@ -1,14 +1,17 @@
-import PropTypes from "prop-types";
 import { Box, Grid } from "@mui/joy";
-import EditableRecordSourceDescription from "./EditableRecordSourceDescription";
+import { useColorScheme } from "@mui/joy/styles";
+import { JsonEditor, githubDarkTheme, githubLightTheme } from "json-edit-react";
+import PropTypes from "prop-types";
 import { RecordsDataContext } from "../RecordsContext";
 import { leftRecordsData, rightRecordsData } from "../Utils";
+import EditableRecordSourceDescription from "./EditableRecordSourceDescription";
 
-function getSourceDescriptionItem(sourceDescription, idx) {
+function SourceDescriptionItem({ sourceDescription, idx }) {
+  const { systemMode } = useColorScheme();
+
   if (sourceDescription.resourceType === "http://gedcomx.org/DigitalArtifact") {
     return (
       <Box
-        key={`sourceDescription-${idx}`}
         sx={{ marginBottom: 1 }} // Added margin for better spacing
       >
         <strong>{sourceDescription.about}</strong>
@@ -18,18 +21,23 @@ function getSourceDescriptionItem(sourceDescription, idx) {
   } else if (sourceDescription.resourceType === "http://gedcomx.org/Record") {
     return (
       <EditableRecordSourceDescription
-        key={`sourceDescription-${idx}`}
         recordSourceDescription={sourceDescription}
         sourceDescriptionIndex={idx}
       />
     );
   } else {
     return (
-      <Box
-        key={`unknown-sd-${idx}`}
-        sx={{ marginBottom: 1 }} // Added margin for consistency
-      >
-        {`Source description of unhandled type: ${sourceDescription.resourceType}`}
+      <Box sx={{ marginBottom: 1 }}>
+        <JsonEditor
+          data={sourceDescription}
+          rootName="sourceDescription"
+          collapse={true}
+          theme={systemMode === "dark" ? githubDarkTheme : githubLightTheme}
+          restrictEdit={true}
+          restrictAdd={true}
+          restrictDelete={true}
+          restrictTypeSelection={true}
+        />
       </Box>
     );
   }
@@ -60,9 +68,13 @@ export default function SourceDescriptionsDiff({
             setFinalGx
           )}
         >
-          {left?.map((sourceDescription, idx) =>
-            getSourceDescriptionItem(sourceDescription, idx)
-          )}
+          {left?.map((sourceDescription, idx) => (
+            <SourceDescriptionItem
+              sourceDescription={sourceDescription}
+              idx={idx}
+              key={`sourceDescription-${idx}`}
+            />
+          ))}
         </RecordsDataContext.Provider>
       </Grid>
       <Grid xs={6}>
@@ -76,14 +88,23 @@ export default function SourceDescriptionsDiff({
             setFinalGx
           )}
         >
-          {right?.map((sourceDescription, idx) =>
-            getSourceDescriptionItem(sourceDescription, idx)
-          )}
+          {right?.map((sourceDescription, idx) => (
+            <SourceDescriptionItem
+              sourceDescription={sourceDescription}
+              idx={idx}
+              key={`sourceDescription-${idx}`}
+            />
+          ))}
         </RecordsDataContext.Provider>
       </Grid>
     </Grid>
   );
 }
+
+SourceDescriptionItem.propTypes = {
+  sourceDescription: PropTypes.object.isRequired,
+  idx: PropTypes.number.isRequired,
+};
 
 SourceDescriptionsDiff.propTypes = {
   leftGx: PropTypes.object.isRequired,
