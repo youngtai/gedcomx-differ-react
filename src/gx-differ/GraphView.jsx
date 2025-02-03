@@ -56,6 +56,9 @@ export default function GraphView({ gx }) {
           "& .fact": {
             color: theme.palette.fact.color,
           },
+          "& .fieldValue": {
+            color: theme.palette.fact.color,
+          },
           "& .factType": {
             color: theme.palette.factType.color,
             fontWeight: "bold",
