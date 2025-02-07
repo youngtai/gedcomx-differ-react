@@ -49,6 +49,20 @@ export default function EditablePersonName({
   function handleDeletePerson() {
     person.names.splice(nameIndex, 1);
     if (!person.names || person.names.length === 0) {
+      const personId = person.id;
+      recordsData.gx.relationships
+        .filter(
+          (rel) =>
+            rel.person1.resourceId === personId ||
+            rel.person2.resourceId === personId
+        )
+        .map((rel) => rel.id)
+        .forEach((id) => {
+          const index = recordsData.gx.relationships.findIndex(
+            (rel) => rel.id === id
+          );
+          recordsData.gx.relationships.splice(index, 1);
+        });
       persons.splice(personIndex, 1);
     }
     updateRecordsData(recordsData);
