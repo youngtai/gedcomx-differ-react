@@ -96,6 +96,10 @@ export default function EditablePerson({ person, personIndex }) {
   const principalIcon = getPrincipalIcon(person);
 
   function handleChangeGender() {
+    if (!person.gender) {
+      person.gender = { type: GENDER.Unknown };
+    }
+
     if (person.gender.type === GENDER.Male) {
       person.gender.type = GENDER.Female;
     } else if (person.gender.type === GENDER.Female) {
