@@ -1,6 +1,7 @@
+import { Alert, Box, IconButton, useTheme } from "@mui/joy";
 import PropTypes from "prop-types";
 import React from "react";
-import { Alert, Box, useTheme } from "@mui/joy";
+import { CancelIcon } from "./Icons";
 
 export default function GraphView({ gx }) {
   const theme = useTheme();
@@ -91,7 +92,14 @@ export default function GraphView({ gx }) {
         }}
       />
       {alert !== "" && (
-        <Alert color="danger" onClose={() => setAlert("")}>
+        <Alert
+          color="danger"
+          endDecorator={
+            <IconButton onClick={() => setAlert("")}>
+              <CancelIcon />
+            </IconButton>
+          }
+        >
           {alert}
         </Alert>
       )}
