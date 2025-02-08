@@ -16,6 +16,7 @@ import { PERSON_FIELD_TYPE } from "../constants";
 import { CancelIcon, DeleteIcon, EditIcon, SaveIcon } from "../Icons";
 import { RecordsDataContext } from "../RecordsContext";
 import { hasMatchingField, updatePersonsData } from "./PersonDiffUtils";
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 
 export default function EditablePersonField({
   field,
@@ -124,7 +125,7 @@ export default function EditablePersonField({
             variant="body1"
             sx={{ color: textColor, fontWeight: 600 }}
           >
-            {editFieldValue}
+            {makeQuestionableWhitespaceVisible(editFieldValue)}
           </Typography>
           <Typography level="body2" sx={{ color: textColor }}>
             {field?.type}
