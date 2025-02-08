@@ -93,6 +93,10 @@ function getRelationshipsIntersection(
 // }
 
 function fullTextName(person) {
+  if (!person) {
+    return "This person doesn't exist"
+  }
+
   if (!person.names[0]?.nameForms[0]?.fullText) {
     return `Nameless Person (${person.id})`;
   }
