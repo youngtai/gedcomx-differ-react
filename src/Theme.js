@@ -94,8 +94,8 @@ const themes = {
         palette: {
           ...commonLightPalette,
           diff: {
-            background: colors.yellow[200],
-            color: colors.blue[700],
+            background: "#f5d3ab",
+            color: colors.blue[800],
           },
         },
       },
