@@ -29,6 +29,11 @@ export default function RelationshipsList({ rels, persons }) {
           />
         ))}
       </Stack>
+      {rels?.length > 2 && (
+        <Button onClick={handleAddRelationship} startDecorator={<AddIcon />}>
+          Add Relationship
+        </Button>
+      )}
     </>
   );
 }

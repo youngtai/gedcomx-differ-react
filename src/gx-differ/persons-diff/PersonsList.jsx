@@ -31,6 +31,15 @@ export default function PersonsList({ persons }) {
           />
         ))}
       </Stack>
+      {persons?.length > 0 && (
+        <Button
+          sx={{ mx: 2 }}
+          onClick={handleAddPerson}
+          startDecorator={<AddIcon />}
+        >
+          Add Person
+        </Button>
+      )}
     </>
   );
 }
