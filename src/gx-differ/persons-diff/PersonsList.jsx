@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/joy";
+import { Box, Button, Stack } from "@mui/joy";
 import PropTypes from "prop-types";
 import React from "react";
 import { AddIcon } from "../Icons";
@@ -14,13 +14,10 @@ export default function PersonsList({ persons }) {
 
   return (
     <>
-      <Button
-        sx={{ mx: 2 }}
-        onClick={handleAddPerson}
-        startDecorator={<AddIcon />}
-      >
+      <Button onClick={handleAddPerson} startDecorator={<AddIcon />}>
         Add Person
       </Button>
+      <Box height={12} />
       <AddPersonDialog open={open} setOpen={setOpen} />
       <Stack>
         {persons.map((person, index) => (
@@ -32,13 +29,12 @@ export default function PersonsList({ persons }) {
         ))}
       </Stack>
       {persons?.length > 0 && (
-        <Button
-          sx={{ mx: 2 }}
-          onClick={handleAddPerson}
-          startDecorator={<AddIcon />}
-        >
-          Add Person
-        </Button>
+        <>
+          <Box height={12} />
+          <Button onClick={handleAddPerson} startDecorator={<AddIcon />}>
+            Add Person
+          </Button>
+        </>
       )}
     </>
   );

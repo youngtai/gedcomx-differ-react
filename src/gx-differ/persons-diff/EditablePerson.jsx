@@ -146,7 +146,7 @@ export default function EditablePerson({ person, personIndex }) {
 
   return (
     <>
-      <Sheet sx={{ margin: 2, borderRadius: "sm" }} variant="outlined">
+      <Sheet sx={{ borderRadius: "sm" }} variant="outlined">
         <Grid container spacing={2} sx={{ padding: 2 }} alignItems="center">
           <Grid xs={1}>
             <Stack spacing={1}>
