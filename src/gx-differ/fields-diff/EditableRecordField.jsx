@@ -17,6 +17,7 @@ import { RECORD_FIELD_TYPE } from "../constants";
 import { CancelIcon, DeleteIcon, EditIcon, SaveIcon } from "../Icons";
 import { RecordsDataContext } from "../RecordsContext";
 import { hasMatchingField, updateFieldsData } from "./FieldsDiffUtils";
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 
 export default function EditableRecordField({ field, fieldIndex }) {
   const theme = useTheme();
@@ -117,10 +118,14 @@ export default function EditableRecordField({ field, fieldIndex }) {
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Box>
-          <Typography fontWeight="600">{field.values[0].text}</Typography>
+          <Typography fontWeight="600">
+            {makeQuestionableWhitespaceVisible(field.values[0].text)}
+          </Typography>
           <Typography variant="body2">Field Value</Typography>
           <Box height={12} />
-          <Typography fontWeight="600">{field.type}</Typography>
+          <Typography fontWeight="600">
+            {makeQuestionableWhitespaceVisible(field.type)}
+          </Typography>
           <Typography variant="body2">Field Type</Typography>
         </Box>
         <Stack>
