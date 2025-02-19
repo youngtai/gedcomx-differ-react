@@ -15,6 +15,7 @@ import {
   hasMatchingCoverageDataItem,
   updateSourceDescriptionsData,
 } from "./SourceDescriptionsDiffUtils";
+import { makeQuestionableWhitespaceVisible } from "../Utils";
 
 export default function EditableCoverageDataItem({
   coverageItem,
@@ -91,51 +92,6 @@ export default function EditableCoverageDataItem({
     updateSourceDescriptionsData(recordsData);
   }
 
-  function renderItem() {
-    if (isEditing) {
-      return (
-        <>
-          <Grid xs>
-            <Input
-              value={editFieldValue}
-              fullwidth
-              onChange={(e) => setEditFieldValue(e.target.value)}
-            />
-          </Grid>
-          <Grid>
-            <IconButton onClick={(prevValue) => setIsEditing(!prevValue)}>
-              <CancelIcon />
-            </IconButton>
-            <IconButton onClick={handleOnSave}>
-              <SaveIcon />
-            </IconButton>
-          </Grid>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <div>
-            <Typography fontWeight="600">{editFieldValue}</Typography>
-            <Typography variant="body2">{label}</Typography>
-          </div>
-          <div>
-            <Tooltip title="Edit" arrow placement="left">
-              <IconButton onClick={handleOnEdit}>
-                <EditIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete" arrow placement="right">
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          </div>
-        </>
-      );
-    }
-  }
-
   return (
     <Box
       sx={{
@@ -150,7 +106,46 @@ export default function EditableCoverageDataItem({
         justifyContent="space-between"
         spacing={2}
       >
-        {renderItem()}
+        {isEditing ? (
+          <>
+            <Grid xs>
+              <Input
+                value={editFieldValue}
+                fullwidth
+                onChange={(e) => setEditFieldValue(e.target.value)}
+              />
+            </Grid>
+            <Grid>
+              <IconButton onClick={(prevValue) => setIsEditing(!prevValue)}>
+                <CancelIcon />
+              </IconButton>
+              <IconButton onClick={handleOnSave}>
+                <SaveIcon />
+              </IconButton>
+            </Grid>
+          </>
+        ) : (
+          <>
+            <div>
+              <Typography fontWeight="600">
+                {makeQuestionableWhitespaceVisible(editFieldValue)}
+              </Typography>
+              <Typography variant="body2">{label}</Typography>
+            </div>
+            <div>
+              <Tooltip title="Edit" arrow placement="left">
+                <IconButton onClick={handleOnEdit}>
+                  <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete" arrow placement="right">
+                <IconButton onClick={handleDelete}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </>
+        )}
       </Grid>
     </Box>
   );
