@@ -17,6 +17,10 @@ import { FACT_KEYS, GEDCOMX_ORIGINAL, PERSON_FIELD_TYPE } from "../constants";
 import Dialog from "../Dialog";
 import { RecordsDataContext } from "../RecordsContext";
 
+const isNonEmpty = (value) => {
+  return value !== undefined && value !== null && value !== "";
+};
+
 export default function AddFactOrFieldDialog({
   open,
   setOpen,
@@ -36,16 +40,16 @@ export default function AddFactOrFieldDialog({
   const [age, setAge] = React.useState("");
 
   const newFact = {};
-  if (type !== "") {
+  if (isNonEmpty(type)) {
     newFact[FACT_KEYS.type] = type;
   }
-  if (date !== "") {
+  if (isNonEmpty(date)) {
     newFact[FACT_KEYS.date] = { original: date };
   }
-  if (place !== "") {
+  if (isNonEmpty(place)) {
     newFact[FACT_KEYS.place] = { original: place };
   }
-  if (value !== "") {
+  if (isNonEmpty(value)) {
     newFact[FACT_KEYS.value] = value;
   }
   newFact[FACT_KEYS.primary] = primary;
