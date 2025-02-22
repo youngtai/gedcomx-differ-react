@@ -19,7 +19,7 @@ export default function PersonsList({ persons }) {
       </Button>
       <Box height={12} />
       <AddPersonDialog open={open} setOpen={setOpen} />
-      <Stack>
+      <Stack spacing={2}>
         {persons.map((person, index) => (
           <EditablePerson
             key={`person-${index}`}
